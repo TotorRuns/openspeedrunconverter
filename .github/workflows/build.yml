@@ -89,7 +89,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    steps:
     if: true # Always run when manually dispatched
     steps:
     - uses: actions/checkout@v4
