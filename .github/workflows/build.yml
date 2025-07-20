@@ -1,11 +1,21 @@
 name: Build Executables
 
 on:
-  push:
-    branches:
-      - main
-      - release
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release Tag (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      release_name:
+        description: 'Release Name (e.g., OpenSpeedrunConverter v1.0.0)'
+        required: true
+        default: 'OpenSpeedrunConverter v1.0.0'
+      prerelease:
+        description: 'Is this a pre-release?'
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   build-linux:
@@ -80,6 +90,8 @@ jobs:
     permissions:
       contents: write
     steps:
+    if: true # Always run when manually dispatched
+    steps:
     - uses: actions/checkout@v4
     - name: Download all build artifacts
       uses: actions/download-artifact@v4
@@ -94,7 +106,7 @@ jobs:
           artifacts/openspeedrunconverter-linux/openspeedrunconverter-linux
           artifacts/openspeedrunconverter-windows/openspeedrunconverter-windows.exe
           artifacts/openspeedrunconverter-macos/openspeedrunconverter-macos
-        name: Release ${{ github.sha }}
-        tag_name: v${{ github.run_number }}
+        name: ${{ github.event.inputs.release_name }}
+        tag_name: ${{ github.event.inputs.release_tag }}
         draft: false
-        prerelease: false
+        prerelease: ${{ github.event.inputs.prerelease }}

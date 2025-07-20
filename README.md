@@ -68,4 +68,4 @@ Compiled binaries for different operating systems will be available in the [Rele
 
 ## License
 
-[TODO: Add your license information here, e.g., MIT License]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
