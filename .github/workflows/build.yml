@@ -44,11 +44,13 @@ jobs:
         pip install pyinstaller PyQt5
     - name: Build with PyInstaller
       run: pyinstaller --onefile --windowed main.py
+    - name: Rename Windows executable
+      run: mv dist/main.exe dist/openspeedrunconverter-windows.exe
     - name: Upload Windows executable
       uses: actions/upload-artifact@v4
       with:
         name: openspeedrunconverter-windows
-        path: dist/main.exe
+        path: dist/openspeedrunconverter-windows.exe
 
   build-macos:
     runs-on: macos-latest
@@ -90,7 +92,7 @@ jobs:
       with:
         files: |
           artifacts/openspeedrunconverter-linux/openspeedrunconverter-linux
-          artifacts/openspeedrunconverter-windows/main.exe
+          artifacts/openspeedrunconverter-windows/openspeedrunconverter-windows.exe
           artifacts/openspeedrunconverter-macos/openspeedrunconverter-macos
         name: Release ${{ github.sha }}
         tag_name: v${{ github.run_number }}
