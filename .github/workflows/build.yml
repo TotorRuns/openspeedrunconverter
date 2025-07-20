@@ -22,11 +22,13 @@ jobs:
         pip install pyinstaller PyQt5
     - name: Build with PyInstaller
       run: pyinstaller --onefile --windowed main.py
+    - name: Rename Linux executable
+      run: mv dist/main dist/openspeedrunconverter-linux
     - name: Upload Linux executable
       uses: actions/upload-artifact@v4
       with:
         name: openspeedrunconverter-linux
-        path: dist/main
+        path: dist/openspeedrunconverter-linux
 
   build-windows:
     runs-on: windows-latest
@@ -62,11 +64,13 @@ jobs:
         pip install pyinstaller PyQt5
     - name: Build with PyInstaller
       run: pyinstaller --onefile --windowed main.py
+    - name: Rename macOS executable
+      run: mv dist/main dist/openspeedrunconverter-macos
     - name: Upload macOS executable
       uses: actions/upload-artifact@v4
       with:
         name: openspeedrunconverter-macos
-        path: dist/main
+        path: dist/openspeedrunconverter-macos
 
   create-release:
     needs: [build-linux, build-windows, build-macos]
@@ -85,9 +89,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/openspeedrunconverter-linux/main
+          artifacts/openspeedrunconverter-linux/openspeedrunconverter-linux
           artifacts/openspeedrunconverter-windows/main.exe
-          artifacts/openspeedrunconverter-macos/main
+          artifacts/openspeedrunconverter-macos/openspeedrunconverter-macos
         name: Release ${{ github.sha }}
         tag_name: v${{ github.run_number }}
         draft: false
