@@ -85,9 +85,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/openspeedrunconverter-linux/*
-          artifacts/openspeedrunconverter-windows/*
-          artifacts/openspeedrunconverter-macos/*
+          artifacts/openspeedrunconverter-linux/main
+          artifacts/openspeedrunconverter-windows/main.exe
+          artifacts/openspeedrunconverter-macos/main
         name: Release ${{ github.sha }}
         tag_name: v${{ github.run_number }}
         draft: false
